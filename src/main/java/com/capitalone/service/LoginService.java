@@ -13,7 +13,7 @@ public class LoginService {
 	private LoginDAO loginDAO;
 	
 	public User loginService(String username, String password) {
-		
+		System.out.println("Login Service");
 		return loginDAO.login(username, password);
 	}
 

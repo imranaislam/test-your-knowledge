@@ -1,6 +1,7 @@
 package com.capitalone.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,7 @@ public class LoginController {
 	private DeleteService deleteService;
 
 	
-	//@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public User login(@RequestParam("username") String username, @RequestParam("password") String password ) {
 		System.out.println("Login Controller");
