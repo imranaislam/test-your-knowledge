@@ -1,7 +1,9 @@
 package com.capitalone.dao;
 
+import com.capitalone.beans.DeleteStatus;
+
 public interface DeleteDAO {
 	
-	public void delete(int questionId);
+	public DeleteStatus delete(int questionId);
 
 }
