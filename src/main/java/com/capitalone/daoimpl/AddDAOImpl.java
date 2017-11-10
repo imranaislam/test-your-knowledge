@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.capitalone.beans.DBStatus;
 import com.capitalone.dao.AddDAO;
@@ -40,7 +39,7 @@ public class AddDAOImpl implements AddDAO {
 			}
 		};
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbcTemplate.update(psc, keyHolder);
+		int rowsInserted = jdbcTemplate.update(psc, keyHolder);
 		int q_id = (int) keyHolder.getKeys().get("question_id");
 		
 		
@@ -52,7 +51,7 @@ public class AddDAOImpl implements AddDAO {
 		
 		String sql3 = "UPDATE testyourknowledgelevel.answers SET answer_option_validity_flag='Y' WHERE question_id=? AND answer_option_text=?";
 		jdbcTemplate.update(sql3, q_id,result);
-		return new DBStatus(1);
+		return new DBStatus(rowsInserted);
 	}
 
 }
