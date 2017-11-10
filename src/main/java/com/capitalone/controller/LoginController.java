@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capitalone.beans.DeleteStatus;
+import com.capitalone.beans.DBStatus;
 import com.capitalone.beans.User;
+import com.capitalone.service.AddService;
 import com.capitalone.service.DeleteService;
 import com.capitalone.service.LoginService;
 
@@ -19,6 +20,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private AddService addService;
 	
 	@Autowired
 	private DeleteService deleteService;
@@ -33,7 +37,7 @@ public class LoginController {
 
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public DeleteStatus delete(@RequestParam("questionId") int questionId) {
+	public DBStatus delete(@RequestParam("questionId") int questionId) {
 		System.out.println("delete controller");
 		return deleteService.deleteService(questionId);
 		
@@ -42,14 +46,9 @@ public class LoginController {
 
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public void addQuestion(@RequestParam("userId") int userId, @RequestParam("subject") int subject,@RequestParam("q1") String q1, @RequestParam("q1a1") String q1a1, @RequestParam("q1a2") String q1a2, @RequestParam("q1a3") String q1a3, @RequestParam("q1a4") String q1a4) {
+	public DBStatus addQuestion(@RequestParam("complexity") int complexity, @RequestParam("subject") int subject,@RequestParam("q") String q, @RequestParam("a1") String a1, @RequestParam("a2") String a2, @RequestParam("a3") String a3, @RequestParam("a4") String a4, @RequestParam("result") String result) {
 		System.out.println("Add Controller");
-		System.out.println(userId);
-		System.out.println(subject);
-		System.out.println(q1);
-		System.out.println(q1a1);
-		System.out.println(q1a2);
-		System.out.println(q1a3);
-		System.out.println(q1a4);
+		return addService.addQuestion(complexity, subject, q, a1, a2, a3, a4, result);
+
 	}
 }
