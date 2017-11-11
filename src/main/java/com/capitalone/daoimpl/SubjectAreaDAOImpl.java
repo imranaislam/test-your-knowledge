@@ -28,7 +28,7 @@ public class SubjectAreaDAOImpl implements SubjectAreasDAO {
 			@Override
 			public SubjectAreas mapRow(ResultSet rs, int rowNum) throws SQLException {
 				SubjectAreas subjectAreas = new SubjectAreas();
-				System.out.println("questions available");
+				System.out.println("SubjectAreas available");
 				subjectAreas.setQuiz_id(rs.getInt("quiz_id"));
 				subjectAreas.setQuiz_subject_area(rs.getString("quiz_subject_area") + ": " + rs.getString("quiz_description"));
 				subjectAreas.setQuiz_creator_id(rs.getInt("quiz_creator_id"));
