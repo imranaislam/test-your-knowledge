@@ -21,11 +21,10 @@ public class QuizViewController {
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/viewquiz", method = RequestMethod.GET)
 	public List<Quiz> findAllQuizzes() {
+		
+		System.out.println("QuizViewController");
 		return quizViewService.quizViewService();
 	}
-	
-	
-	
 	
 
 }

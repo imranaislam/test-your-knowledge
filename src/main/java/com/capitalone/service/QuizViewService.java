@@ -16,6 +16,9 @@ public class QuizViewService {
 	private QuizViewDAO quizViewDAO;
 	
 	public List<Quiz> quizViewService() {
+		
+		System.out.println("QuizView Service");
+		
 		List<Quiz> quizzes = new ArrayList<>();
 		quizzes=quizViewDAO.findAllQuizzes();
 		return quizzes;

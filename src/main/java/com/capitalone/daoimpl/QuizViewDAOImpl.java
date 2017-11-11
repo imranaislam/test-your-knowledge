@@ -21,11 +21,11 @@ public class QuizViewDAOImpl implements QuizViewDAO {
 	@Override
 	public List<Quiz> findAllQuizzes() {
 		
-		String sqlStmt = "SELECT quiz.quiz_id, quiz.quiz_subject_area, quiz.quiz_description, quiz.quiz_creator_id, questions.question_id,"
-+ "questions.question_text,questions.question_complexity_id, users.user_id,users.role_id"
-+ "FROM testyourknowledgelevel.quiz ,  testyourknowledgelevel.questions, testyourknowledgelevel.users"
-+ "WHERE users.user_id = quiz.quiz_creator_id"
-+ "AND quiz.quiz_id = questions.quiz_id ";
+		String sqlStmt = "SELECT quiz.quiz_id, quiz.quiz_subject_area, quiz.quiz_description, quiz.quiz_creator_id, questions.question_id, "
+				+ "questions.question_text,questions.question_complexity_id, users.user_id,users.role_id FROM testyourknowledgelevel.quiz ,  "
+				+ "testyourknowledgelevel.questions, testyourknowledgelevel.users WHERE users.user_id = quiz.quiz_creator_id AND "
+				+ "quiz.quiz_id = questions.quiz_id";
+
 		
 		List<Quiz> listQuizzes = myJdbcTemplate.query(sqlStmt, new RowMapper<Quiz>() {
 			
