@@ -18,10 +18,8 @@ public class QuizViewService {
 	public List<Quiz> quizViewService() {
 		
 		System.out.println("QuizView Service");
-		
-		List<Quiz> quizzes = new ArrayList<>();
-		quizzes=quizViewDAO.findAllQuizzes();
-		return quizzes;
+				
+		return quizViewDAO.findAllQuizzes();
 	}
 	
 

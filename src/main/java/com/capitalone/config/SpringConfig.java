@@ -14,8 +14,10 @@ public class SpringConfig {
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:9000/postgres");
-		dataSource.setUsername("skp036");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/hva331");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("postgres");
+
 		dataSource.setPassword("Capital1");
          
         return dataSource;
