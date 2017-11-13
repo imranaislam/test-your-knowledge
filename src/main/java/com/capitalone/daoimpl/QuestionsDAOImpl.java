@@ -22,10 +22,10 @@ public class QuestionsDAOImpl implements QuestionsDAO {
 		System.out.println(" quiz id:  " + quiz_id);
 
 
-		String sql = "SELECT question_text, answer_id, answer_option_text, answer_option_validity_flag "
-				+ "FROM testyourknowledgelevel.questions as Q, testyourknowledgelevel.answers as A "
-				+ "Where Q.question_id = A.question_id "
-				+ "And Q.quiz_id = ?";
+		String sql = "SELECT question_id, question_text "
+				+ "FROM testyourknowledgelevel.questions "
+				+ "Where quiz_id = ? ";
+
 		
 		List<Questions> questions = jdbcTemplate.query(sql, new RowMapper<Questions>() {
 
@@ -34,9 +34,7 @@ public class QuestionsDAOImpl implements QuestionsDAO {
 				Questions questions = new Questions();
 
 				questions.setQuestion_text(rs.getString("question_text"));
-				questions.setAnswer_id(rs.getInt("answer_id"));
-				questions.setAnswer_option_text(rs.getString("answer_option_text"));
-				questions.setAnswer_option_validity_flag(rs.getString("answer_option_validity_flag"));
+				questions.setQuestion_id(rs.getInt("question_id"));
 				System.out.println("QuestionDAOImpl");
 				return questions;
 			}

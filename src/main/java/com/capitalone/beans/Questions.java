@@ -3,8 +3,7 @@ package com.capitalone.beans;
 public class Questions {
 	private int question_id;
 	private String question_text;
-	private String answer_option_text;
-	private String answer_option_validity_flag;
+
 
 	public Questions() {
 		super();
@@ -16,8 +15,7 @@ public class Questions {
 		super();
 		this.question_id = question_id;
 		this.question_text = question_text;
-		this.answer_option_text = answer_option_text;
-		this.answer_option_validity_flag = answer_option_validity_flag;
+
 	}
 
 	public int getQuestion_id() {
@@ -36,26 +34,12 @@ public class Questions {
 		this.question_text = question_text;
 	}
 
-	public String getAnswer_option_text() {
-		return answer_option_text;
-	}
-
-	public void setAnswer_option_text(String answer_option_text) {
-		this.answer_option_text = answer_option_text;
-	}
-
-	public String getAnswer_option_validity_flag() {
-		return answer_option_validity_flag;
-	}
-
-	public void setAnswer_option_validity_flag(String answer_option_validity_flag) {
-		this.answer_option_validity_flag = answer_option_validity_flag;
-	}
-
 	@Override
 	public String toString() {
-		return "Questions [question_id=" + question_id + ", question_text=" + question_text + ", answer_option_text="
-				+ answer_option_text + ", answer_option_validity_flag=" + answer_option_validity_flag + "]";
+		return "Questions [question_id=" + question_id + ", question_text=" + question_text + "]";
 	}
+
+
+
 
 }
