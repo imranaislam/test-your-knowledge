@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capitalone.beans.Quiz;
 import com.capitalone.service.QuizViewService;
@@ -16,15 +17,13 @@ import com.capitalone.service.QuizViewService;
 public class QuizViewController {
 	
 	@Autowired
-	private QuizViewService quizViewService;
+	QuizViewService qvs;
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/viewquiz", method = RequestMethod.GET)
-	public List<Quiz> findAllQuizzes() {
-		
+	public @ResponseBody List<Quiz> findAllQuizzes() {
+		List<Quiz> quizList = qvs.quizViewService();
 		System.out.println("QuizViewController");
-		return quizViewService.quizViewService();
+		return quizList;
 	}
-	
-
 }
