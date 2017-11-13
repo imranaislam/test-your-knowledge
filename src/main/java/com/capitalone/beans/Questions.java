@@ -1,8 +1,8 @@
 package com.capitalone.beans;
 
 public class Questions {
+	private int question_id;
 	private String question_text;
-	private int answer_id;
 	private String answer_option_text;
 	private String answer_option_validity_flag;
 
@@ -11,13 +11,21 @@ public class Questions {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Questions(String question_text, int answer_id, String answer_option_text,
+	public Questions(int question_id, String question_text, String answer_option_text,
 			String answer_option_validity_flag) {
 		super();
+		this.question_id = question_id;
 		this.question_text = question_text;
-		this.answer_id = answer_id;
 		this.answer_option_text = answer_option_text;
 		this.answer_option_validity_flag = answer_option_validity_flag;
+	}
+
+	public int getQuestion_id() {
+		return question_id;
+	}
+
+	public void setQuestion_id(int question_id) {
+		this.question_id = question_id;
 	}
 
 	public String getQuestion_text() {
@@ -26,14 +34,6 @@ public class Questions {
 
 	public void setQuestion_text(String question_text) {
 		this.question_text = question_text;
-	}
-
-	public int getAnswer_id() {
-		return answer_id;
-	}
-
-	public void setAnswer_id(int answer_id) {
-		this.answer_id = answer_id;
 	}
 
 	public String getAnswer_option_text() {
@@ -54,7 +54,7 @@ public class Questions {
 
 	@Override
 	public String toString() {
-		return "Questions [question_text=" + question_text + ", answer_id=" + answer_id + ", answer_option_text="
+		return "Questions [question_id=" + question_id + ", question_text=" + question_text + ", answer_option_text="
 				+ answer_option_text + ", answer_option_validity_flag=" + answer_option_validity_flag + "]";
 	}
 
