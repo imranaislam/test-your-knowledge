@@ -2,8 +2,8 @@ package com.capitalone.dao;
 
 import java.util.List;
 
-import com.capitalone.beans.Questions;
+import com.capitalone.beans.QuestionAnswers;
 
 public interface TakeQuizDAO {
-	public List<Questions> retrieveQuestions(int subjectarea, int complexity);
+	public List<QuestionAnswers> retrieveQuestionAnswers(int subjectarea, int complexity);
 }
