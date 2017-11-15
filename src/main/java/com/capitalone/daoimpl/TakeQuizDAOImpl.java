@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.capitalone.beans.Answer;
 import com.capitalone.beans.QuestionAnswers;
 import com.capitalone.dao.TakeQuizDAO;
 
@@ -22,26 +23,40 @@ public class TakeQuizDAOImpl implements TakeQuizDAO {
 		System.out.println("subjectarea recieved " + subjectarea);
 		System.out.println("expertiseLevel received" + expertiseLevel);
 
-		String sql = "SELECT Q.question_id, Q.question_text, A.answer_id, A.answer_option_text, A.answer_option_validity_flag "
-				+ "FROM testyourknowledgelevel.questions AS Q, testyourknowledgelevel.answers AS A "
-				+ "WHERE Q.question_id = A.question_id " + "AND quiz_id = ? " + "AND question_complexity_id = ?";
+		String sql1 = "SELECT question_id, question_text from testyourknowledgelevel.questions where quiz_id = ? AND question_complexity_id = ?";
 
-		List<QuestionAnswers> questionAnswers = jdbcTemplate.query(sql, new RowMapper<QuestionAnswers>() {
+		List<QuestionAnswers> questionAnswers = jdbcTemplate.query(sql1, new RowMapper<QuestionAnswers>() {
 
 			@Override
 			public QuestionAnswers mapRow(ResultSet rs, int rowNum) throws SQLException {
-				QuestionAnswers questionAnswers = new QuestionAnswers();
-				System.out.println("questions available");
-				questionAnswers.setQuestion_id(rs.getInt("question_id"));
-				questionAnswers.setQuestion_text(rs.getString("question_text"));
-				questionAnswers.setAnswer_id(rs.getInt("answer_id"));
-				questionAnswers.setAnswer_option_text(rs.getString("answer_option_text"));
-				questionAnswers.setAnswer_option_validity_flag(rs.getString("answer_option_validity_flag"));
-				return questionAnswers;
+				QuestionAnswers question = new QuestionAnswers();
+				question.setQuestion_id(rs.getInt(1));
+				question.setQuestion_text(rs.getString(2));
+				return question;
 			}
 
 		}, subjectarea, expertiseLevel);
-		return (List<QuestionAnswers>) questionAnswers;
-	}
+		
+		String sql2 = "SELECT answer_id, answer_option_text, answer_option_validity_flag FROM testyourknowledgelevel.answers where question_id = ?";
+		
+		for (QuestionAnswers question: questionAnswers) {
+			List<Answer> answers = jdbcTemplate.query(sql2, new RowMapper<Answer>() {
+
+				@Override
+				public Answer mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Answer answer = new Answer();
+					answer.setAnswer_id(rs.getInt(1));
+					answer.setAnswer_option_text(rs.getString(2));
+					answer.setAnswer_option_validity_flag(rs.getString(3));
+					return answer;
+				}
+			}, question.getQuestion_id());
+			
+			question.setAnswers(answers);
+		}
+		
+		
+		return questionAnswers;
+	}		
 
 }
