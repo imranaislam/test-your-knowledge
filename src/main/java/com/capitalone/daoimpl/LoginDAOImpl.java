@@ -22,8 +22,7 @@ public class LoginDAOImpl implements LoginDAO {
 	public User login(String username, String password) {
 		System.out.println("Login DAO");
 		
-		//String sql = "SELECT users.user_id, users.user_name, users.first_name, users.last_name, roles.user_role FROM testyourknowledgelevel.users JOIN testyourknowledgelevel.roles ON (users.role_id = roles.role_id) WHERE user_name = ? AND password=?";
-		String sql = "SELECT users.user_id, users.user_name, users.first_name, users.last_name, roles.user_role FROM testyourknowledgelevel.users JOIN testyourknowledgelevel.roles ON (users.role_id = roles.role_id) WHERE user_name = ? AND password=crypt(?, password)";
+		String sql = "SELECT users.user_id, users.user_name, users.first_name, users.last_name, roles.user_role FROM testyourknowledgelevel.users JOIN testyourknowledgelevel.roles ON (users.role_id = roles.role_id) WHERE user_name = ? AND password=?";
 		
 		System.out.println("sql " + sql);
 		List<User> users = jdbcTemplate.query(sql, new RowMapper<User>() {
