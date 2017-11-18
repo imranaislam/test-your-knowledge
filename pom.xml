@@ -53,22 +53,59 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.6.0</version>
+					<executions>
+						<execution>
+							<id>exec-npm-install</id>
+							<phase>generate-sources</phase>
+							<configuration>
+								<workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
+								<executable>npm</executable>
+								<arguments>
+									<argument>install</argument>
+								</arguments>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>exec-npm-run</id>
+							<phase>generate-sources</phase>
+							<configuration>
+								<workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
+								<executable>npm</executable>
+								<arguments>
+									<argument>run</argument>
+								</arguments>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
