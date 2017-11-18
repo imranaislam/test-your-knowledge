@@ -14,12 +14,12 @@ public class SpringConfig {
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/mne157");
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("postgres");
-//		dataSource.setUrl("jdbc:postgresql://tykl.cyo9dfqynrir.us-east-1.rds.amazonaws.com:5432/tykl");
-//		dataSource.setUsername("tykluser");
-//		dataSource.setPassword("Capital1");
+//		dataSource.setUrl("jdbc:postgresql://localhost:5432/mne157");
+//		dataSource.setUsername("postgres");
+//		dataSource.setPassword("postgres");
+		dataSource.setUrl("jdbc:postgresql://tykl.cyo9dfqynrir.us-east-1.rds.amazonaws.com:5432/tykl");
+		dataSource.setUsername("tykluser");
+		dataSource.setPassword("Capital1");
          
         return dataSource;
 	}
