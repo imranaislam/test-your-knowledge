@@ -8,7 +8,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "h3 {\n    padding-top: 1cm;\n    text-align: center;\n    padding-bottom: 1cm;\n}\nh3.header{\n    \ncolor: rgb(110, 212, 113);\n}\np {\n  text-indent: 50px;\n  color: rgba(23, 176, 214, 0.726);\n}\np.errormessage{\n    text-indent: 10px;\ncolor: rgb(211, 25, 22);\n}", ""]);
 
 // exports
 
@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/takequiz/takequiz.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n      <div class=\"header\">\n            <h4 class=\"panel-title\">\n                        <a class=\"ion-navicon-round\" data-toggle=\"collapse out\" data-parent=\"#accordion\" href=\"javascript:void(0)\"><span class=\"glyphicon glyphicon-th-list\">\n                            </span>Following Questionnaire is prepared based on your selection: </a>  \n    \n                </h4>\n      </div>\n      <br>\n      <br>\n\n      <div *ngFor=\"let question of questionanswers; let i = index\">{{i+1}}. {{question.question_text}}\n            <div *ngFor=\"let answer of question.answers\">\n                  <input name={{question.question_id}} type=\"radio\" (click)=\"saveresponse(question.question_id, answer.answer_id)\"> {{answer.answer_option_text}}\n            </div>\n            <br>\n      </div>\n      <br> {{databaseErrorMessage}}\n      <button class=\"btn btn-success\" (click)=\"validateAnswers()\">Validate Responses</button>\n      <br>\n      <br>\n      <div *ngFor=\"let validationResult of validationResults\">{{validationResult}}</div>\n\n</div>\n\n"
+module.exports = "<div>\n      <div class=\"header\">\n            <h4 class=\"panel-title\">\n                  <a data-toggle=\"collapse out\" data-parent=\"#accordion\" href=\"javascript:void(0)\">\n                        <span class=\"glyphicon glyphicon-th-list\">\n                        </span>Following Questionnaire is prepared based on your selection: </a>\n\n            </h4>\n      </div>\n      <br>\n      <br>\n      <div *ngFor=\"let question of questionanswers; let i = index\">{{i+1}}. {{question.question_text}}\n            <div style=\"padding:20px;\">\n                  <div *ngFor=\"let answer of question.answers\"> &nbsp;&nbsp;\n                        <input name={{question.question_id}} type=\"radio\" (click)=\"saveresponse(question.question_id, answer.answer_id)\"> &nbsp;&nbsp;{{answer.answer_option_text}}\n                  </div>\n            </div>\n      </div>\n      <p class=errormessage>{{errorMessage}}</p>\n      <br>\n      <br>\n      <button class=\"btn btn-success\" (click)=\"validateAnswers()\">Validate Responses</button>\n      <br>\n      <br>\n      <div>\n            <strong>{{this.successRate}}</strong>\n      </div>\n      <br>\n      <div *ngFor=\"let validationResult of validationResults\">{{validationResult}}</div>\n      <br>\n      <br>\n</div>"
 
 /***/ }),
 
@@ -49,7 +49,7 @@ var TakeQuizComponent = (function () {
     function TakeQuizComponent(router, http) {
         this.router = router;
         this.http = http;
-        this.databaseErrorMessage = '';
+        this.errorMessage = '';
         this.questionanswers = [];
         this.expectedAnswers = [];
         this.expectedAnswersOptionText = [];
@@ -58,6 +58,8 @@ var TakeQuizComponent = (function () {
     }
     TakeQuizComponent.prototype.ngOnInit = function () {
         this.retrieveQuestions();
+        this.totalQuestionsAnswered = 0;
+        this.numberOfCorrect = 0;
     };
     TakeQuizComponent.prototype.retrieveQuestions = function () {
         var _this = this;
@@ -82,23 +84,32 @@ var TakeQuizComponent = (function () {
         }, function (error) {
             if (error.status === 400) {
                 _this.router.navigate(['pages/takequiz']);
-                _this.databaseErrorMessage = 'Our Sincere Apologies.  We are working on creating challenges in the subject area you chose.  Please come back soon and try again.';
+                _this.errorMessage = 'Our Sincere Apologies.  We are working on creating challenges in the subject area you chose.  Please come back soon and try again.';
             }
         });
     };
     TakeQuizComponent.prototype.saveresponse = function (question_id, answer_id) {
         this.userAnswers[question_id] = answer_id;
+        this.totalQuestionsAnswered += 1;
     };
     TakeQuizComponent.prototype.validateAnswers = function () {
-        for (var i in this.expectedAnswers) {
-            if (this.expectedAnswers[i] !== null) {
-                if (this.expectedAnswers[i] === this.userAnswers[i]) {
-                    this.validationResults[i] = 'Answer for the question ' + i + ' is Correct.';
-                }
-                else {
-                    this.validationResults[i] = 'Answer for the question ' + i + ' is Wrong.  Correct Answer is ' + this.expectedAnswersOptionText[i] + '.';
+        if (this.totalQuestionsAnswered !== this.questionanswers.length) {
+            this.errorMessage = 'You must answer all the Questions to begin validation.';
+        }
+        else {
+            this.errorMessage = '';
+            for (var i in this.expectedAnswers) {
+                if (this.expectedAnswers[i] !== null) {
+                    if (this.expectedAnswers[i] === this.userAnswers[i]) {
+                        this.validationResults[i] = 'Answer for the question ' + i + ' is Correct.';
+                        this.numberOfCorrect += 1;
+                    }
+                    else {
+                        this.validationResults[i] = 'Answer for the question ' + i + ' is Wrong.  Correct Answer is ' + this.expectedAnswersOptionText[i] + '.';
+                    }
                 }
             }
+            this.successRate = 'Percentage of correct responses: ' + (Math.round((this.numberOfCorrect / this.questionanswers.length) * 100));
         }
     };
     return TakeQuizComponent;
