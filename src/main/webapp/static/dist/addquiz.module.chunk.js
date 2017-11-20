@@ -120,8 +120,8 @@ var AddQuizComponent = (function () {
         this.http.post('http://localhost:8080/test-your-knowledge/add', "q=" + this.q + "&subject=" + this.subjectDrop + "&complexity=" + this.complexDrop + "&a1=" + this.a1 + "&a2=" + this.a2 + "&a3=" + this.a3 + "&a4=" + this.a4 + "&result=" + this.radioQ1, { headers: this.headers })
             .subscribe(function (data) {
             if (data.status === 200) {
-                _this.message = "Question created!";
-                sleep(1000).then(function () {
+                _this.message = "Successfully added the new Question and Answers!";
+                sleep(2000).then(function () {
                     location.reload();
                 });
             }
